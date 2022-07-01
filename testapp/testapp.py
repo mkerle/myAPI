@@ -1,7 +1,6 @@
-import httpHelper
+from helpers import httpHelper
+from helpers.decorators import isAuthenticated, hasPermission
 from router.router import HTTPRoute, HTTPRouter
-
-from auth import isAuthenticated, hasPermission
 
 class testApp(HTTPRouter):
 

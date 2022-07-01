@@ -19,7 +19,7 @@ def getJSONRequestBody(request):
 def sendJSONResponse(start_response, jsonResponse, status='200 OK', headers=None):
 
     if (headers is None):
-        headers = [('Content-type', 'application/json; charset=utf-8')]
+        headers = [('Content-type', 'application/json; charset=utf-8'), ('Access-Control-Allow-Origin', 'http://127.0.0.1:4200'), ('Access-Control-Allow-Credentials', 'true')]
     else:
         foundContentType = False
         for header in headers:
@@ -42,7 +42,7 @@ def send404Response(request, start_response):
     start_response(status, [])
     return [b'']
 
-def send401Response(request, start_response):
+def defaultSend401Response(request, start_response):
 
     status = '401 Unauthorized'
     start_response(status, [])
@@ -53,3 +53,5 @@ def send400Response(request, start_response):
     status = '400 Bad Request'
     start_response(status, [])
     return [b'']   
+
+send401Response = defaultSend401Response

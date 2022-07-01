@@ -2,7 +2,7 @@
 import re
 import types
 import sys
-import httpHelper
+from helpers import httpHelper
 
 class HTTPRoute():
 
@@ -11,7 +11,7 @@ class HTTPRoute():
         if (path[0] == '/'):
             self.path = r'^%s.*' % (path)
         else:
-            self.path = r'.*%s.*' % (path)
+            self.path = r'.*/%s.*' % (path)
 
         self.handler = handler
 

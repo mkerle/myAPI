@@ -1,37 +1,11 @@
 import json
 
 from router.router import HTTPRoute, HTTPRouter
-import httpHelper
+from helpers import httpHelper
+from helpers.decorators import allowedHTTPMethods
 
 from auth.ldapBackend import LDAPBackend
 from jwt.jwt import JWTHelper
-
-def isAuthenticated(func):
-
-    def isAuthenticatedWrapper(self, request, start_response):
-        user = request.get('USER', None)
-        if (user and user.isAuthenticated()):
-            return func(self, request, start_response)
-        else:
-            return httpHelper.send401Response(request, start_response)
-
-    return isAuthenticatedWrapper
-
-def hasPermission(group):
-
-    def checkPermission(func):
-
-        def checkPermissionWrapper(self, request, start_response):
-            user = request.get('USER', None)
-            if (user and group in user.groups):
-                return func(self, request, start_response)
-            else:
-                return httpHelper.send401Response(request, start_response)
-
-        return checkPermissionWrapper
-
-    return checkPermission
-
 
 class LDAPAuthentication(HTTPRouter):
 
@@ -43,7 +17,7 @@ class LDAPAuthentication(HTTPRouter):
         
         self.addRoute(HTTPRoute('login/', self.login))
 
-    
+    @allowedHTTPMethods(['OPTIONS', 'POST'])
     def login(self, request, start_response):
 
         credentials = {}

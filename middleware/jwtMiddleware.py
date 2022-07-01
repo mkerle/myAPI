@@ -1,7 +1,7 @@
 
 from middleware import AbstractMiddleware
 
-from auth.user import JWTUser
+from auth.jwtUser import JWTUser
 
 class JWTMiddleware(AbstractMiddleware):
 

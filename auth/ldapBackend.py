@@ -1,6 +1,6 @@
 import ldap
 
-from auth.user import LDAPUser
+from auth.ldapUser import LDAPUser
 
 class LDAPBackend():
 

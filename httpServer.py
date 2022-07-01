@@ -7,7 +7,8 @@ import base64
 import re
 
 from router.router import HTTPRoute, HTTPRouter
-from auth import LDAPAuthentication
+from apps.auth import LDAPAuthentication
+from apps.ldapMgmt import LDAPMgmtApp
 from testapp.testapp import testApp
 
 from middleware.jwtMiddleware import JWTMiddleware
@@ -19,6 +20,7 @@ SERVER_KEY_FILE = 'key.pem'
 router = HTTPRouter()
 router.addRoute(HTTPRoute('/testapp/', testApp()))
 router.addRoute(HTTPRoute('/auth/', LDAPAuthentication()))
+router.addRoute(HTTPRoute('/ldapmgmt/', LDAPMgmtApp()))
 
 middleware = [JWTMiddleware()]
 
@@ -27,7 +29,7 @@ def main_router(environ, start_response):
 
     for m in middleware:
         m.processRequest(environ)
-    #print(environ)
+    print(environ)
 
     return router.processRequest(environ, start_response)
 
