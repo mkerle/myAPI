@@ -19,7 +19,7 @@ def getJSONRequestBody(request):
 def sendJSONResponse(start_response, jsonResponse, status='200 OK', headers=None):
 
     if (headers is None):
-        headers = [('Content-type', 'application/json; charset=utf-8'), ('Access-Control-Allow-Origin', 'http://127.0.0.1:4200'), ('Access-Control-Allow-Credentials', 'true')]
+        headers = [('Content-type', 'application/json; charset=utf-8')]
     else:
         foundContentType = False
         for header in headers:
